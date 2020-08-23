@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.learning</groupId>
-    <artifactId>springboot-web-app</artifactId>
+    <artifactId>azure-chatbot-demo-web-application</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>springboot-web-app</name>
+    <name>azure-chatbot-demo-web-application</name>
     <packaging>war</packaging>
     <description>Demo project for Spring Boot web application</description>
 
