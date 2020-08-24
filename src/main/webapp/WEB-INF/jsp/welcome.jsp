@@ -23,6 +23,10 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/@babel/standalone@7.8.7/babel.min.js"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/react@16.8.6/umd/react.development.js"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/react-dom@16.8.6/umd/react-dom.development.js"></script>
+
     <![endif]-->
 </head>
 
@@ -75,6 +79,10 @@
         right: 5px;
         border: 3px solid #f1f1f1;
         z-index: 9;
+        border: black solid 1px;
+        overflow-y: auto;
+        max-height: 75%;
+        min-height: 20%;
     }
 
     /* Add styles to the form container */
@@ -115,13 +123,14 @@
 
     /* Add a red background color to the cancel button */
     .form-container .cancel {
-        background-color: red;
+        background-color: #ff0000;
     }
 
     /* Add some hover effects to buttons */
     .form-container .btn:hover, .open-button:hover {
         opacity: 1;
     }
+
 </style>
 </head>
 <body>
@@ -129,16 +138,28 @@
 <button class="open-button" onclick="openForm()">Chat</button>
 
 <div class="chat-popup" id="myForm">
+
     <form action="/action_page.php" class="form-container">
 
         <script src="https://cdn.botframework.com/botframework-webchat/master/webchat.js"></script>
 
         <div id="webchat" role="main">
 
-            <script>
+            <script type="text/babel" data-presets="es2015,react,stage-3">
                 (async function () {
-                    const token = 'IchGsdcpMcg.VCB2Y1D0cZE0RqK8KXFjAFFdEYF8ydKLu4490rjU81c';
 
+                    const res = await fetch('https://directline.botframework.com/v3/directline/tokens/generate',
+                        { method: 'POST',
+                            headers: {
+                                'Authorization': 'Bearer  IchGsdcpMcg.VCB2Y1D0cZE0RqK8KXFjAFFdEYF8ydKLu4490rjU81c'
+                            }
+                        });
+
+                    //const res = await fetch('https://poc-qnabot-app.azurewebsites.net/directline/token', { method: 'POST' });
+                    const { token } = await res.json();
+
+
+                    //const token = 'IchGsdcpMcg.VCB2Y1D0cZE0RqK8KXFjAFFdEYF8ydKLu4490rjU81c';
                     // You can modify the style set by providing a limited set of style options
                     const styleOptions = {
                         botAvatarImage: '${contextPath}/resources/image/WelcomeLogo.png',
@@ -148,26 +169,12 @@
                         bubbleBackground: 'rgba(0, 0, 255, .1)',
                         bubbleFromUserBackground: 'rgba(0, 255, 0, .1)'
                     };
+                    const { ReactWebChat } = window.WebChat;
 
-                    // We are using a customized store to add hooks to connect event
-                    const store = window.WebChat.createStore({}, ({ dispatch }) => next => action => {
-                        if (action.type === 'DIRECT_LINE/CONNECT_FULFILLED') {
-                            // When we receive DIRECT_LINE/CONNECT_FULFILLED action, we will send an event activity using WEB_CHAT/SEND_EVENT
-                            dispatch({
-                                type: 'WEB_CHAT/SEND_EVENT',
-                                payload: {
-                                    name: 'webchat/join',
-                                    value: { language: window.navigator.language }
-                                }
-                            });
-                        }
-                        return next(action);
-                    });
-
-                    window.WebChat.renderWebChat({
-                        directLine: window.WebChat.createDirectLine({ token }),
-                        styleOptions,store
-                    }, document.getElementById('webchat'));
+                    window.ReactDOM.render(
+                        <ReactWebChat directLine={window.WebChat.createDirectLine({ token })} />,
+                        document.getElementById('webchat')
+                    );
 
                     document.querySelector('#webchat > *').focus();
                 })().catch(err => console.error(err));
