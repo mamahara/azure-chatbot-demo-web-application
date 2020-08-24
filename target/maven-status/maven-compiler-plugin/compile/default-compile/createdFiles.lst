@@ -1,0 +1,13 @@
+com\learning\springboot\repository\RoleRepository.class
+com\learning\springboot\WebApplication.class
+com\learning\springboot\repository\UserRepository.class
+com\learning\springboot\validator\UserValidator.class
+com\learning\springboot\service\UserServiceImpl.class
+com\learning\springboot\model\User.class
+com\learning\springboot\service\SecurityService.class
+com\learning\springboot\service\SecurityServiceImpl.class
+com\learning\springboot\service\UserDetailsServiceImpl.class
+com\learning\springboot\model\Role.class
+com\learning\springboot\service\UserService.class
+com\learning\springboot\WebSecurityConfig.class
+com\learning\springboot\controller\UserController.class
