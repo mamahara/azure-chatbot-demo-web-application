@@ -137,7 +137,7 @@
                     const res = await fetch('https://directline.botframework.com/v3/directline/tokens/generate',
                         { method: 'POST',
                             headers: {
-                                'Authorization': 'Bearer  IchGsdcpMcg.VCB2Y1D0cZE0RqK8KXFjAFFdEYF8ydKLu4490rjU81c'
+                                'Authorization': 'Bearer  ye65KiVzC4w.Y32mMMDSmy8qLGtIvqN2Kjy998sGT3O_wRUKGNwEZGc'
                             }
                         });
                     //const res = await fetch('https://poc-qnabot-app.azurewebsites.net/directline/token', { method: 'POST' });
