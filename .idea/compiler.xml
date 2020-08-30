@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="azure-chatbot-demo-application" target="7" />
+      <module name="azure-chatbot-demo-application" target="8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

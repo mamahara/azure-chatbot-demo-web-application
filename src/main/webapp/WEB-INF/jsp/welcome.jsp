@@ -1,12 +1,15 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -14,10 +17,13 @@
     <meta name="author" content="">
 
     <title>Welcome</title>
-
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script type="text/javascript" src="${contextPath}/resources/js/search.js"></script>
     <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
+    <link rel="stylesheet" href="${contextPath}/resources/css/tabulator.css">
+    <script type="text/javascript" src="${contextPath}/resources/js/tabulator.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -75,12 +81,12 @@
         z-index: 9;
         border: black solid 1px;
         overflow-y: auto;
-        max-height: 75%;
-        min-height: 20%;
+        max-height: 95%;
+        min-height: 40%;
     }
     /* Add styles to the form container */
     .form-container {
-        max-width: 300px;
+        max-width: 400px;
         padding: 10px;
         background-color: white;
     }
@@ -121,6 +127,20 @@
 </style>
 </head>
 <body>
+<div class="container">
+    <form id="search-form">
+        <h2>Search Profile</h2>
+        <div class="form-group">
+            <input id="passportNumber" type="text" path="passportNumber" placeholder="Passport Number" class="input search-query"></input>
+
+            <input type="text" path="name" placeholder="Passport Name" class="input search-query"></input>
+            <button id="searchButton" type="submit" class="btn-info"  class="btn">Find Profile</button>
+        </div>
+        <button id="allProfileButton" type="submit" class="btn-info"  class="btn">Find All Profile</button>
+    </form>
+    <div id="search-table"></div>
+</div>
+
 
 <button class="open-button" onclick="openForm()">Chat</button>
 
@@ -137,7 +157,7 @@
                     const res = await fetch('https://directline.botframework.com/v3/directline/tokens/generate',
                         { method: 'POST',
                             headers: {
-                                'Authorization': 'Bearer  IchGsdcpMcg.VCB2Y1D0cZE0RqK8KXFjAFFdEYF8ydKLu4490rjU81c'
+                                'Authorization': 'Bearer  ye65KiVzC4w.Y32mMMDSmy8qLGtIvqN2Kjy998sGT3O_wRUKGNwEZGc'
                             }
                         });
                     //const res = await fetch('https://poc-qnabot-app.azurewebsites.net/directline/token', { method: 'POST' });
