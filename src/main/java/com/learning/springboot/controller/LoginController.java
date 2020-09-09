@@ -1,6 +1,5 @@
 package com.learning.springboot.controller;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.learning.springboot.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,6 @@ import com.learning.springboot.model.User;
 import com.learning.springboot.service.SecurityService;
 import com.learning.springboot.service.UserService;
 import com.learning.springboot.validator.UserValidator;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -81,6 +79,40 @@ public class LoginController {
         model.addAttribute("profileSearchForm", new Profile());
 
         return "welcome";
+    }
+
+    @RequestMapping(value = {"/luis"}, method = RequestMethod.GET)
+    public String LuisQNA(Model model) {
+        String loggedInUsername = securityService.findLoggedInUsername();
+        User user = userService.findByUsername(loggedInUsername);
+        model.addAttribute("profileSearchForm", new Profile());
+
+        return "luis";
+    }
+
+
+    @RequestMapping(value = {"/vision"}, method = RequestMethod.GET)
+    public String ComputeVision(Model model) {
+        String loggedInUsername = securityService.findLoggedInUsername();
+        User user = userService.findByUsername(loggedInUsername);
+
+        return "vision";
+    }
+
+    @RequestMapping(value = {"/speech-api"}, method = RequestMethod.GET)
+    public String SpeechService(Model model) {
+        String loggedInUsername = securityService.findLoggedInUsername();
+        User user = userService.findByUsername(loggedInUsername);
+
+        return "speech-api";
+    }
+
+    @RequestMapping(value = {"/face-recognition"}, method = RequestMethod.GET)
+    public String Facerecognition(Model model) {
+        String loggedInUsername = securityService.findLoggedInUsername();
+        User user = userService.findByUsername(loggedInUsername);
+
+        return "face-recognize";
     }
 
     @RequestMapping(value = "/searchProfile", method = RequestMethod.POST)

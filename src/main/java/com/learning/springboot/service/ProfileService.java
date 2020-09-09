@@ -11,5 +11,5 @@ public interface ProfileService {
 
     List<Profile> getProfileByPassportNUmber(String passportNumber);
 
-    void saveUser(Profile profile);
+    void saveProfile(Profile profile);
 }

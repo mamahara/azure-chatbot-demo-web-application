@@ -29,8 +29,8 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public void saveUser(Profile profile) {
-
+    public void saveProfile(Profile profile) {
+        System.out.println("In profileServiceIMp");
+        profileRepository.save(profile);
     }
-
 }

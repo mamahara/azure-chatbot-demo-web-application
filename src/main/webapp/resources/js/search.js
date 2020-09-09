@@ -4,6 +4,9 @@ $( document ).ready(function() {
     // GET REQUEST
     $("#searchButton").click(function(event){
         event.preventDefault();
+        $("#search-table").show();
+        $("#createProfileForm").hide();
+        $("#result").html("");
         ajaxGet();
     });
 
@@ -56,6 +59,9 @@ $( document ).ready(function() {
     // GET REQUEST
     $("#allProfileButton").click(function(event){
         event.preventDefault();
+        $("#search-table").show();
+        $("#createProfileForm").hide();
+        $("#result").html("");
         ajaxGet();
     });
 
@@ -100,3 +106,43 @@ $( document ).ready(function() {
 
     }
 })
+
+$(document).ready(function() {
+    $("#createProfileButton").click(function() {
+        $("#createProfileForm").toggle();
+        document.getElementById("createProfileForm").reset();
+        $("#search-table").hide();
+        $("#result").html("");
+
+    });
+});
+
+
+$(document).ready(function() {
+    $("#createProfileForm").submit(function(event){
+        event.preventDefault();
+        var form = $(this);
+        var profileName = form.find('input[name="name"]').val();
+        var passportNumber = form.find('input[name="passportNumber"]').val().toLowerCase();
+        var passportType = form.find('input[name="passportType"]').val();
+        var Country = form.find('input[name="Country"]').val();
+        var isBlacklisted = false;
+        let isPreclearanceDone = false;
+
+        var url = window.location.origin + "/profile/saveProfile";
+        var jsonString = JSON.stringify({name: profileName, passportNumber: passportNumber, country: Country, blacklisted: isBlacklisted, preclearanceDone: isPreclearanceDone,passportType: passportType});
+        $.ajax({
+            type : 'POST',
+            url : url,
+            contentType: 'application/json',
+            data : jsonString,
+            success : function(data, status, xhr){
+                $("#createProfileForm").toggle();
+                $("#result").html("<h3>Profile Created</h3>");
+            },
+            error: function(xhr, status, error){
+                alert(error);
+            }
+        });
+    });
+});

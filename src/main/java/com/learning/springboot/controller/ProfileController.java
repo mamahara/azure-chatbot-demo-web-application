@@ -30,7 +30,7 @@ public class ProfileController {
 
     @RequestMapping(value= Constants.SAVE_PROFILE, method= RequestMethod.POST)
     public void saveUser(@RequestBody Profile profile) {
-        profileService.saveUser(profile);
+        profileService.saveProfile(profile);
     }
 
 }
